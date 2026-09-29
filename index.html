@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calender View</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        .con {
+            border: 10px solid rgb(59, 55, 55);
+            /* width: 100%; */
+            padding: 3%;
+            margin: 4%;
+        }
+
+        #month-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+        }
+
+        .month-card {
+            /* display: grid; */
+            /* grid-template-columns: repeat(7, 1fr); */
+            border: 1px solid black;
+            padding: 20px;
+        }
+
+        .week {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            margin-bottom: 3px;
+            background-color: red;
+            padding: 10px;
+        }
+
+        .week div {
+            font-size: 15px;
+        }
+
+        .dates {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .month {
+            text-align: center;
+        }
+
+        .dates div {
+            font-size: 15px;
+            line-height: 18px;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="con">
+        <div id="month-container">
+
+        </div>
+    </div>
+    <script>
+        let month = 0;
+        let months = [
+            "JANUARY",
+            "FEBRUARY",
+            "MARCH",
+            "APRIL",
+            "MAY",
+            "JUNE",
+            "JULY",
+            "AUGUST",
+            "SEPTEMBER",
+            "OCTOBER",
+            "NOVEMBER",
+            "DECEMBER"
+        ];
+        let weekdays = ["S", "M", "T", "W", "T", "F", "S"];
+        let bgcolor = ["pink", "blue", "green", "voilet", "yellow", "skyblue", "grey", "aqua"]
+        let allMonths = "";
+        let year = 2026;
+        for (let month = 0; month < 12; month++) {
+            let monthName = months[month];
+            console.log(monthName)
+            let dates = "";
+            let week = "";
+            let totalDays = new Date(year, month + 1, 0).getDate();
+            let color = bgcolor[month % bgcolor.length];
+
+            let firstDay = new Date(year, month, 1).getDay();
+            for (i = 0; i < 7; i++) {
+                week += `<div>${weekdays[i]}</div>`
+            }
+            for (let i = 0; i < firstDay; i++) {
+                dates += `<div></div>`;
+            }
+            for (let i = 1; i <= totalDays; i++) {
+                dates += `<div>${i}</div>`;
+            }
+
+            allMonths += `
+                <div class="month-card">
+                    <div class="month">
+                        ${monthName}
+                    </div>
+                    <div class="week"  style="background-color:${color}">
+                        ${week}
+                    </div>
+                    <div class="dates">
+                        ${dates}
+                    </div>
+                </div>
+            `;
+        }
+        // document.getElementById("dates").innerHTML = dates;
+        document.getElementById("month-container").innerHTML = allMonths;
+        // console.log(dates);
+        // console.log(monthName);
+    </script>
+</body>
+
+</html>
